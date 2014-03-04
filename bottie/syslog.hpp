@@ -41,8 +41,8 @@ class Syslog
     public:
         //! Write text to terminal as well as ring log
         /*!
-             * \param Message Message to log
-             */
+         * \param Message Message to log
+         */
         static void Log(QString Message, BottieLogType Type = BottieLogType_Normal);
         static void ErrorLog(QString Message);
         static void WarningLog(QString Message);

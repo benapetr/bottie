@@ -2,6 +2,8 @@
 #define NETWORKING_H
 
 #include <QObject>
+#include <QTcpServer>
+#include <QThread>
 #include "syslog.hpp"
 
 class Networking : public QObject

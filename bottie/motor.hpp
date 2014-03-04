@@ -2,7 +2,9 @@
 #define MOTOR_HPP
 
 #include <QList>
+#include <QThread>
 #include <unistd.h>
+#include "syslog.hpp"
 
 class Motor
 {
@@ -11,6 +13,7 @@ class Motor
         Motor(int channel);
         ~Motor();
         int Channel;
+        int Speed;
 };
 
 #endif // MOTOR_HPP
