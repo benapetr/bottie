@@ -47,8 +47,8 @@ void MotorTh::run()
 {
     while (mx->IsOnline())
     {
-        int speed = 20;
-        if (mx->Speed > 20)
+        int speed = MINIMAL_SPEED;
+        if (mx->Speed > MINIMAL_SPEED)
         {
             speed = mx->Speed;
         }

@@ -7,6 +7,8 @@
 #include <wiringPi.h>
 #include "syslog.hpp"
 
+#define MINIMAL_SPEED 60
+
 class Motor;
 
 class MotorTh : public QThread

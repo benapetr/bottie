@@ -19,9 +19,13 @@ TEMPLATE = app
 SOURCES += main.cpp \
     motor.cpp \
     networking.cpp \
-    syslog.cpp
+    syslog.cpp \
+    networkserver.cpp \
+    nservicethread.cpp
 
 HEADERS += \
     motor.hpp \
     networking.hpp \
-    syslog.hpp
+    syslog.hpp \
+    networkserver.hpp \
+    nservicethread.hpp
