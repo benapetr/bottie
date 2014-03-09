@@ -7,7 +7,7 @@
 #include <wiringPi.h>
 #include "syslog.hpp"
 
-#define MINIMAL_SPEED 20
+#define MINIMAL_SPEED 60
 
 class Motor;
 
