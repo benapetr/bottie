@@ -38,12 +38,14 @@ void NServiceThread::run()
 
     while (Connected)
     {
+        this->tcpSocket->waitForReadyRead(20);
         QString text(this->tcpSocket->readLine());
         //Send("PING");
         if (text != "")
         {
             text.replace("\n", "");
             text.replace("\r", "");
+            Syslog::Log(text);
             if (text == "1++")
             {
                 Motor::Motors.at(0)->Speed += 100;
@@ -65,7 +67,7 @@ void NServiceThread::run()
                 Syslog::Log("Motor 2 boost -100");
             }
         }
-        QThread::usleep(200000);
+        QThread::usleep(2000000);
         //break;
     }
     Disconnect();

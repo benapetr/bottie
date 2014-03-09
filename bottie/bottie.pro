@@ -9,6 +9,7 @@ QT       += core network
 QT       -= gui
 
 LIBS += -lwiringPi
+#LIBS += wiringPi.a
 TARGET = bottie
 CONFIG   += console
 CONFIG   -= app_bundle
