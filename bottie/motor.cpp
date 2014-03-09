@@ -29,6 +29,7 @@ void Motor::Connect()
     }
     this->th = new MotorTh(this);
     this->th->start();
+    Syslog::Log("Motor is online on ch: " + QString::number(this->Channel));
     this->Online = true;
 }
 
