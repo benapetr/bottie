@@ -3,43 +3,72 @@
 NServiceThread::NServiceThread(int Descriptor, QObject *parent) : QThread(parent)
 {
     this->socketDescriptor = Descriptor;
+    this->tcpSocket = NULL;
     this->Connected = true;
+}
+
+NServiceThread::~NServiceThread()
+{
+    delete this->tcpSocket;
 }
 
 void NServiceThread::Disconnect()
 {
     this->Connected = false;
-    tcpSocket.disconnectFromHost();
-    tcpSocket.waitForDisconnected();
+    tcpSocket->disconnectFromHost();
+    tcpSocket->waitForDisconnected();
 }
 
 void NServiceThread::Send(QString text)
 {
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_4_0);
-    out << (quint16)0;
-    out << text;
-    out.device()->seek(0);
-    out << (quint16)(block.size() - sizeof(quint16));
-
-    tcpSocket.write(block);
+    text += "\n";
+    tcpSocket->write(text.toUtf8());
+    tcpSocket->flush();
 }
 
 void NServiceThread::run()
 {
-    if (!tcpSocket.setSocketDescriptor(socketDescriptor))
+    this->tcpSocket = new QTcpSocket();
+    if (!this->tcpSocket->setSocketDescriptor(socketDescriptor))
     {
         Syslog::ErrorLog("Unable to bind to descriptor");
-        emit error(tcpSocket.error());
+        emit error(tcpSocket->error());
         return;
     }
 
     while (Connected)
     {
-        Send("hi");
-        break;
+        QString text(this->tcpSocket->readLine());
+        //Send("PING");
+        if (text != "")
+        {
+            text.replace("\n", "");
+            text.replace("\r", "");
+            if (text == "1++")
+            {
+                Motor::Motors.at(0)->Speed += 100;
+                Syslog::Log("Motor 1 boost 100");
+            }
+            if (text == "1--")
+            {
+                Motor::Motors.at(0)->Speed -= 100;
+                Syslog::Log("Motor 1 boost -100");
+            }
+            if (text == "2++")
+            {
+                Motor::Motors.at(0)->Speed += 100;
+                Syslog::Log("Motor 2 boost 100");
+            }
+            if (text == "2--")
+            {
+                Motor::Motors.at(0)->Speed += 100;
+                Syslog::Log("Motor 2 boost -100");
+            }
+        }
+        QThread::usleep(200000);
+        //break;
     }
     Disconnect();
     return;
 }
+

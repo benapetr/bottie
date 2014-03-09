@@ -12,6 +12,7 @@ class NServiceThread : public QThread
         Q_OBJECT
     public:
         NServiceThread(int Descriptor, QObject *parent);
+        ~NServiceThread();
         void Disconnect();
         void Send(QString text);
         bool Connected;
@@ -24,7 +25,7 @@ class NServiceThread : public QThread
 
     private:
         int socketDescriptor;
-        QTcpSocket tcpSocket;
+        QTcpSocket *tcpSocket;
 };
 
 #endif // NSERVICETHREAD_H

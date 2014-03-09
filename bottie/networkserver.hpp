@@ -2,6 +2,7 @@
 #define NETWORKSERVER_HPP
 
 #include <QTcpServer>
+#include "syslog.hpp"
 #include "nservicethread.hpp"
 
 class NetworkServer : public QTcpServer

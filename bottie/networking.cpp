@@ -15,7 +15,7 @@ void Networking::Listen()
         return;
     }
     server = new NetworkServer(this);
-    if (!server->listen(QHostAddress::Any, 120))
+    if (!server->listen(QHostAddress::Any, 2020))
     {
         Syslog::ErrorLog("Unable to open the listener");
         delete server;
