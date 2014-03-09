@@ -12,7 +12,7 @@ class NetworkServer : public QTcpServer
         NetworkServer(QObject *parent = 0);
 
     protected:
-        void incomingConnection(qintptr socketDescriptor);
+        void incomingConnection(int socketDescriptor);
 
     private:
 

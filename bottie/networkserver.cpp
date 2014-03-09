@@ -4,7 +4,7 @@ NetworkServer::NetworkServer(QObject *parent) : QTcpServer(parent)
 {
 }
 
-void NetworkServer::incomingConnection(qintptr socketDescriptor)
+void NetworkServer::incomingConnection(int socketDescriptor)
 {
     NServiceThread *thread = new NServiceThread(socketDescriptor, this);
     //Syslog::Log("in");
