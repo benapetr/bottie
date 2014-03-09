@@ -11,6 +11,7 @@ class Networking : public QObject
         Q_OBJECT
     public:
         Networking(QObject *parent = 0) : QObject(parent) {}
+        QString IP;
     public slots:
         void run();
 };

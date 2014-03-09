@@ -4,16 +4,36 @@
 #include <QList>
 #include <QThread>
 #include <unistd.h>
+#include <wiringPi.h>
 #include "syslog.hpp"
+
+class Motor;
+
+class MotorTh : public QThread
+{
+        Q_OBJECT
+    public:
+        MotorTh(Motor *Mx);
+        ~MotorTh();
+        Motor *mx;
+    protected:
+        void run();
+};
 
 class Motor
 {
     public:
         static QList<Motor*> Motors;
+
         Motor(int channel);
         ~Motor();
+        bool IsOnline();
+        void Connect();
         int Channel;
         int Speed;
+    private:
+        bool Online;
+        MotorTh *th;
 };
 
 #endif // MOTOR_HPP
