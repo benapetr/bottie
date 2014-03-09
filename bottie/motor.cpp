@@ -8,6 +8,7 @@ Motor::Motor(int channel)
     this->Online = false;
     Syslog::Log("Registering new offline motor on channel " + QString::number(channel));
     this->Speed = 0;
+    this->bSpeed = 0;
 }
 
 Motor::~Motor()
@@ -31,6 +32,22 @@ void Motor::Connect()
     this->th->start();
     Syslog::Log("Motor is online on ch: " + QString::number(this->Channel));
     this->Online = true;
+}
+
+void Motor::ModifySpeed(int speed)
+{
+    this->bSpeed = this->bSpeed + speed;
+    if (this->bSpeed < 0)
+    {
+        this->bSpeed = 0;
+    }
+    if (this->bSpeed < 200)
+    {
+        this->Speed = 0;
+    } else
+    {
+        this->Speed = this->bSpeed;
+    }
 }
 
 MotorTh::MotorTh(Motor *Mx)

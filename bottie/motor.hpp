@@ -7,7 +7,7 @@
 #include <wiringPi.h>
 #include "syslog.hpp"
 
-#define MINIMAL_SPEED 60
+#define MINIMAL_SPEED 20
 
 class Motor;
 
@@ -31,7 +31,9 @@ class Motor
         ~Motor();
         bool IsOnline();
         void Connect();
+        void ModifySpeed(int speed);
         int Channel;
+        int bSpeed;
         int Speed;
     private:
         bool Online;
